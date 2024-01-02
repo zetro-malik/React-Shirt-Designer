@@ -12,7 +12,7 @@ import {
     slideAnimation
 } from '../config/motion'
 
-import { CustomerButton } from '../components'
+import { CustomButton } from '../components'
 
 
 
@@ -34,7 +34,7 @@ function Home() {
                             </motion.div>
                             <motion.div className='flex flex-col gap-5' {...headContentAnimation}>
                                 <p className='max-w-md font-normal text-gray-600 text-base'>Create your unique and exlusive shirt with our brand-new 3D customization tool. <strong>Unleash your imagination</strong>{" "} and define your own style</p>
-                            <CustomerButton
+                            <CustomButton
                             type="filled"
                             title="Customize It"
                             handleClick={()=>state.intro = false}

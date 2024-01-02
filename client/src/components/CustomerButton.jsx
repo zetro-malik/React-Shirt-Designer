@@ -3,7 +3,7 @@ import React from 'react'
 import state from '../store'
 import { useSnapshot } from 'valtio'
 
-const CustomerButton = (props) => {
+const CustomButton = (props) => {
 
     const snap = useSnapshot(state)
 
@@ -29,4 +29,4 @@ const CustomerButton = (props) => {
   )
 }
 
-export default CustomerButton
+export default CustomButton
