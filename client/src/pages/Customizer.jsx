@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useSnapshot } from 'valtio'
 import config from '../config/config'
@@ -11,8 +11,38 @@ import {FilePicker,ColorPicker,AiPicker, CustomerButton, Tab} from '../component
 
 
 function Customizer() {
-
     const snap = useSnapshot(state)
+
+    const [file,setFile] = useState('');
+
+    //for AI 
+    const [prompt,setPrompt] = useState('');
+    const [generatingImg, setGeneratingImg] = useState(false);
+
+    const [activeEditorTab,setActiveEditorTab] = useState('');
+    const [activeFilterTab,setActiveFilterTab] = useState({
+        logoShirt:true,
+        stylistShirt:false
+    });
+
+
+
+    const generateTabContent = ()=>{
+        switch(activeEditorTab){
+            case "colorpicker":
+                return <ColorPicker/>
+            case 'filepicker':
+                return <FilePicker/>
+            case 'aipicker':
+                return <AiPicker/>
+            default:
+                return null
+
+        }
+
+    }
+
+  
   return (
    <AnimatePresence>
     {
@@ -28,9 +58,12 @@ function Customizer() {
                                  <Tab
                                  key={tab.name}
                                  tab = {tab}
-                                 handleClick={()=>{}}
+                                 handleClick={()=>{
+                                    setActiveEditorTab(tab.name)
+                                 }}
                                 />
                         ))} 
+                        {generateTabContent()}
                     </div>
                 
                 </div>
@@ -40,7 +73,12 @@ function Customizer() {
                 <CustomerButton
                  type = "filled"
                  title = "Go Back"
-                 handleClick = {()=>state.intro = true}
+                 handleClick = {()=>{
+                    setActiveEditorTab('')
+                    state.intro = true
+                   
+                  
+                 }}
                  customStyle = "w-fit px-4 py-2.5 font-bold text-sm"
                 />
             </motion.div>
