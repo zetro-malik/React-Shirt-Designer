@@ -22,6 +22,7 @@ const CustomerButton = (props) => {
     className={`px-2 py-1.2 flex-1 rounded-md ${props.customStyle}`}
     style={generateStyle()}
     onClick={props.handleClick}
+
     >
         {props.title}
     </button>
