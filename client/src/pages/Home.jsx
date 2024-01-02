@@ -2,6 +2,9 @@ import React from 'react'
 import {motion, AnimatePresence} from 'framer-motion'
 import {useSnapshot} from 'valtio'
 
+import state from '../store'
+
+
 import {
     headContainerAnimation,
     headContentAnimation,
@@ -10,9 +13,31 @@ import {
 } from '../config/motion'
 
 
+
 function Home() {
+  const snap = useSnapshot(state);
   return (
-    <div>Home</div>
+    <AnimatePresence>
+        {
+            snap.intro && (
+                <motion.div className='home' {...slideAnimation('left')}>
+                    <motion.header {...slideAnimation('down')}>
+                        <img src='./threejs.png' alt='logo' className='w-8 h-8 object-contain'/>
+                    </motion.header>
+                    <motion.div className='home-content' {...headContainerAnimation}>
+                           <motion.div {...headTextAnimation}>
+                            <h1 className='head-text'>
+                                LET'S <br className='xl:block hidden'/> DO IT.
+                                </h1>
+                            </motion.div>
+                            <motion.div className='flex flex-col gap-5' {...headContentAnimation}>
+                                <p className='max-w-md font-normal text-gray-600 text-base'>Create your unique and exlusive shirt with our brand-new 3D customization tool. <strong>Unleash your imagination</strong>{" "} and define your own style</p>
+                                </motion.div>         
+                    </motion.div>
+                </motion.div>
+            )
+        }
+    </AnimatePresence>
   )
 }
 
