@@ -4,10 +4,14 @@ import { Environment, Center } from '@react-three/drei';
 import Shirt from './Shirt';
 import Backdrop from './backdrop';
 import CameraRig from './CameraRig';
+import { useRef } from 'react';
 
-const CanvasModel = () => {
+const CanvasModel = (props) => {
+
   return (
-    <Canvas
+
+     <Canvas
+     ref={props.data}
       shadows
       camera={{ position: [0, 0, 0], fov: 25 }}
       gl={{ preserveDrawingBuffer: true }}
@@ -15,7 +19,6 @@ const CanvasModel = () => {
     >
       <ambientLight intensity={0.5} />
       <Environment preset="city" />
-
       <CameraRig>
         <Backdrop />
         <Center>
@@ -23,6 +26,7 @@ const CanvasModel = () => {
         </Center>
       </CameraRig>
     </Canvas>
+
   )
 }
 

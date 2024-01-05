@@ -10,7 +10,7 @@ import { EditorTabs, FilterTabs, DecalTypes } from '../config/constants';
 import { fadeAnimation, slideAnimation } from '../config/motion';
 import { ColorPicker, CustomButton, FilePicker, Tab, AiPicker } from '../components';
 
-const Customizer = () => {
+const Customizer = (props) => {
   const snap = useSnapshot(state);
 
   const [file, setFile] = useState('');
@@ -22,7 +22,35 @@ const Customizer = () => {
   const [activeFilterTab, setActiveFilterTab] = useState({
     logoShirt: true,
     stylishShirt: false,
+    download:false
   })
+
+  // download the image
+
+  const downloadImage = () => {
+    if (!props.data.current) return;
+
+    const canvas = props.data.current;
+
+    // Create a temporary anchor element
+    const link = document.createElement('a');
+    document.body.appendChild(link);
+
+    // Convert canvas to image data URL
+    const image = canvas.toDataURL('image/png');
+
+    // Set the href attribute of the anchor to the image data URL
+    link.href = image;
+
+    // Set the download attribute to prompt the user to save the image with a specific filename
+    link.download = 'canvas_image.png';
+
+    // Simulate a click on the anchor to trigger the download
+    link.click();
+
+    // Clean up - remove the anchor element
+    document.body.removeChild(link);
+  };
 
   // show tab content depending on the activeTab
   const generateTabContent = () => {
@@ -92,6 +120,10 @@ const Customizer = () => {
       case "stylishShirt":
           state.isFullTexture = !activeFilterTab[tabName];
         break;
+      case "download":
+         
+        downloadImage();
+        break;
       default:
         state.isLogoTexture = true;
         state.isFullTexture = false;
@@ -100,12 +132,14 @@ const Customizer = () => {
 
     // after setting the state, activeFilterTab is updated
 
-    setActiveFilterTab((prevState) => {
-      return {
-        ...prevState,
-        [tabName]: !prevState[tabName]
-      }
-    })
+    if(tabName != "download"){
+      setActiveFilterTab((prevState) => {
+        return {
+          ...prevState,
+          [tabName]: !prevState[tabName]
+        }
+      })
+    }
   }
 
   const readFile = (type) => {
@@ -120,6 +154,7 @@ const Customizer = () => {
     <AnimatePresence>
       {!snap.intro && (
         <>
+
           <motion.div
             key="custom"
             className="absolute top-0 left-0 z-10"
