@@ -132,7 +132,7 @@ const Customizer = (props) => {
 
     // after setting the state, activeFilterTab is updated
 
-    if(tabName != "download"){
+    if(tabName != "download"){ 
       setActiveFilterTab((prevState) => {
         return {
           ...prevState,
