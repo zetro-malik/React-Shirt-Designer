@@ -99,7 +99,7 @@ const Customizer = (props) => {
 //     } finally {
 //       setGeneratingImg(false);
 //       setActiveEditorTab("");
-//     }
+//     }asdasdasd
 //   }
 
   const handleDecals = (type, result) => {
@@ -133,6 +133,7 @@ const Customizer = (props) => {
     // after setting the state, activeFilterTab is updated
 
     if(tabName != "download"){ 
+      //sdf  
       setActiveFilterTab((prevState) => {
         return {
           ...prevState,
